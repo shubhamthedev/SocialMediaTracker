@@ -1,0 +1,431 @@
+//variables
+$color-primary-1: hsl(163, 72%, 41%);
+$color-primary-2: hsl(356, 69%, 56%);
+$color-fb: hsl(195, 100%, 50%);
+$color-twitter: hsl(203, 89%, 53%);
+$color-instagram-1: hsl(37, 97%, 70%);
+$color-instagram-2: hsl(329, 70%, 58%);
+$color-youtube: hsl(348, 97%, 39%);
+
+//light theme
+$color-light-toggle: hsl(230, 22%, 74%);
+$color-light-bg-dark: hsl(225, 100%, 98%);
+$color-light-bg-light: hsl(0, 0%, 100%);
+$color-card-bg-light: hsl(227, 47%, 96%);
+$color-light-text-1: hsl(228, 12%, 44%);
+$color-light-text-2: hsl(230, 17%, 14%);
+
+//dark theme
+$color-dark-toggle-1: hsl(210, 78%, 56%);
+$color-dark-toggle-2: hsl(146, 68%, 55%);
+$color-bg-light: hsl(232, 19%, 15%);
+$color-bg-dark: hsl(230, 17%, 14%);
+$color-card-bg-dark: hsl(228, 28%, 20%);
+$color-dark-text-1: hsl(228, 34%, 66%);
+$color-dark-text-2: hsl(0, 0%, 100%);
+
+//Grid variables
+$grid-width: 114rem;
+$gutter-horizontal: 4rem;
+$gutter-vertical: 2rem;
+//mixins
+@mixin clearfix {
+  &::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+}
+//media queries
+@mixin respond($breakpoint) {
+  @if $breakpoint == phone {
+    @media only screen and (max-width: 37.5em) {
+      @content;
+    }
+  }
+  @if $breakpoint == tab-port {
+    @media only screen and (max-width: 56.25em) {
+      @content;
+    } //900px
+  }
+  @if $breakpoint == laptop-medium {
+    @media only screen and (max-width: 64em) {
+      @content;
+    } //1000px
+  }
+  @if $breakpoint == tab-land {
+    @media only screen and (max-width: 75em) {
+      @content;
+    } //1200px
+  }
+  @if $breakpoint == big-desktop {
+    @media only screen and (min-width: 112.5em) {
+      @content;
+    } //1800
+  }
+}
+
+//Basic style reset
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: inherit;
+}
+html {
+  font-size: 62.5%;
+  @include respond(tab-land) {
+    font-size: 56.25%;
+  }
+  @include respond(tab-port) {
+    font-size: 50%;
+  }
+}
+body {
+  font-family: "Inter", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  background-size: cover;
+  height: 105vh;
+  background-repeat: no-repeat;
+}
+.body-white {
+  background-image: linear-gradient(
+    to bottom,
+    $color-light-bg-dark 0%,
+    $color-light-bg-dark 32%,
+    $color-light-bg-light 32%,
+    $color-light-bg-light 100%
+  );
+}
+.body-dark {
+  background-image: linear-gradient(
+    to bottom,
+    $color-bg-dark 0%,
+    $color-bg-dark 32%,
+    $color-bg-light 32%,
+    $color-bg-light 100%
+  );
+}
+//typography
+.heading-primary {
+  font-size: 2.5rem;
+  font-weight: 700;
+  &--light {
+    color: $color-light-text-2;
+  }
+  &--dark {
+    color: $color-dark-text-2;
+  }
+}
+.heading-secondary {
+  font-size: 5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  &--light {
+    color: $color-light-text-2;
+  }
+  &--dark {
+    color: $color-dark-text-2;
+  }
+}
+.heading-tertiary {
+  font-size: 2.3rem;
+  &--light {
+    color: $color-light-text-1;
+  }
+  &--dark {
+    color: $color-dark-text-1;
+  }
+}
+.followers {
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 1.3rem;
+  margin-bottom: 2.5rem;
+  letter-spacing: 0.5rem;
+  &--light {
+    color: $color-light-text-1;
+  }
+  &--dark {
+    color: $color-dark-text-1;
+  }
+}
+.lead {
+  margin-top: 0.5rem;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: $color-light-text-1;
+  &--light {
+    color: $color-light-text-1;
+  }
+  &--dark {
+    color: $color-dark-text-1;
+  }
+}
+//Grid
+.row {
+  max-width: $grid-width;
+  margin: 0 auto;
+  @include clearfix;
+  @include respond(laptop-medium) {
+    max-width: 100rem;
+    margin: 0 auto;
+  }
+  @include respond(tab-port) {
+    max-width: 50rem;
+    margin: 0 auto;
+  }
+  @include respond(phone) {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  &:not(:last-child) {
+    margin-bottom: $gutter-vertical;
+  }
+  [class^="col-"] {
+    float: left;
+    &:not(:last-child) {
+      margin-right: $gutter-horizontal;
+      @include respond(tab-port) {
+        margin-right: 0;
+        margin-bottom: $gutter-horizontal;
+      }
+    }
+    @include respond(tab-port) {
+      width: 100% !important;
+    }
+  }
+  .col-1-of-4 {
+    width: calc((100%- (3 * #{$gutter-horizontal})) / 4);
+  }
+}
+
+//navbar
+
+.navbar {
+  margin-top: 2rem;
+  &__flex-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__dark-mode {
+    display: flex;
+    align-items: center;
+  }
+  &__dark-text {
+    margin-right: 1rem;
+    font-weight: 700;
+    font-size: 1.2rem;
+    &--light {
+      color: $color-light-text-1;
+    }
+    &--dark {
+      color: $color-dark-text-1;
+    }
+  }
+  &__toggle {
+    text-decoration: none;
+    height: 2.7rem;
+    width: 5rem;
+    border-radius: 100rem;
+    position: relative;
+    transition: all 0.2s ease-in-out;
+    .navbar__circle {
+      display: inline-block;
+      position: absolute;
+      width: 2.2rem;
+      height: 2.2rem;
+      border-radius: 50%;
+      &--light {
+        background-color: $color-light-bg-dark;
+        top: 0.2rem;
+        right: 0.3rem;
+      }
+      &--dark {
+        background-color: $color-bg-dark;
+        top: 0.2rem;
+        left: 0.3rem;
+      }
+    }
+    &--light {
+      background-color: $color-light-toggle;
+    }
+    &--dark {
+      background-image: linear-gradient(
+        to right,
+        $color-dark-toggle-1,
+        $color-dark-toggle-2
+      );
+    }
+
+    &:hover {
+      background-color: none;
+      background-image: linear-gradient(
+        to right,
+        $color-dark-toggle-1,
+        $color-dark-toggle-2
+      );
+    }
+  }
+}
+//header
+.header {
+  text-align: center;
+  margin-top: 4rem;
+  &__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 0;
+    width: 25rem;
+    border-radius: 0.5rem;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    @include respond(laptop-medium) {
+      width: 22rem;
+      height: 15rem;
+    }
+    @include respond(tab-port) {
+      width: 100%;
+      height: auto;
+    }
+
+    &--1 {
+      border-top: 0.4rem solid $color-fb;
+    }
+    &--2 {
+      border-top: 0.4rem solid $color-twitter;
+    }
+    &--3 {
+      &::before {
+        content: "";
+        width: 100%;
+        height: 0.4rem;
+        position: absolute;
+        top: 0;
+        background-image: linear-gradient(
+          to right,
+          $color-instagram-1,
+          $color-instagram-2
+        );
+      }
+    }
+    &--4 {
+      border-top: 0.4rem solid $color-youtube;
+    }
+    &--light {
+      background-color: $color-card-bg-light;
+    }
+    &--dark {
+      background-color: $color-card-bg-dark;
+    }
+  }
+
+  &__social-media {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  &__social-media-counter {
+    display: flex;
+    align-items: center;
+  }
+  &__social-media-text {
+    margin-left: 1rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    &--light {
+      color: $color-light-text-1;
+    }
+    &--dark {
+      color: $color-dark-text-1;
+    }
+  }
+  &__social-media-counter-text {
+    margin-left: 0.5rem;
+    font-weight: 700;
+    font-size: 1.2rem;
+    &--green {
+      color: $color-primary-1;
+    }
+    &--red {
+      color: $color-primary-2;
+    }
+  }
+}
+//overview section
+.section-overview {
+  margin-top: 4rem;
+}
+.overview-card {
+  width: 19rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  padding: 2.5rem 3rem;
+  @include respond(laptop-medium) {
+    width: 16rem;
+  }
+  @include respond(tab-port) {
+    width: 44rem;
+  }
+  @include respond(phone) {
+    width: 34rem;
+  }
+  &--light {
+    background-color: $color-card-bg-light;
+  }
+  &--dark {
+    background-color: $color-card-bg-dark;
+  }
+  &__heading {
+    font-size: 1.2rem;
+    font-weight: 700;
+    &--light {
+      color: $color-light-text-1;
+    }
+    &--dark {
+      color: $color-dark-text-1;
+    }
+  }
+  &__text {
+    font-size: 2.5rem;
+    &--light {
+      color: $color-light-text-2;
+    }
+    &--dark {
+      color: $color-dark-text-2;
+    }
+  }
+  &__box-1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  &__box-2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__percentage {
+    display: flex;
+    align-items: center;
+  }
+  &__percenttext {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-left: 0.5rem;
+    &--green {
+      color: $color-primary-1;
+    }
+    &--red {
+      color: $color-primary-2;
+    }
+  }
+}
